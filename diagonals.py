@@ -43,14 +43,9 @@ def display_board(board):
     display_score()
 
 
-# display_board(new_board(5))
-
-
 # Ici je défini la fonction possible_square qui permet de calculer si
 # la case que le joueur choisi n'est pas occupé.
 def possible_square(board, x: int, z: int):
-    print(x, z)
-    print(board[x][z])
     return board[x][z] == 0
 
 
