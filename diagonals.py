@@ -13,7 +13,7 @@ def new_board(n):
     return board
 
 
-def get_char_by_number(number):
+def get_char_by_number(number: int):
     if number == 0:
         return "."
     elif number == 1:
@@ -48,8 +48,8 @@ def display_board(board):
 
 # Ici je défini la fonction possible_square qui permet de calculer si
 # la case que le joueur choisi n'est pas occupé.
-def possible_square(board, x, z):
-    print(x,z)
+def possible_square(board, x: int, z: int):
+    print(x, z)
     print(board[x][z])
     return board[x][z] == 0
 
@@ -58,17 +58,18 @@ def select_square(board):
     print("Pour Choisir merci de respecter le format suivant :")
     print("x,z | exemple : 1,5")
     location = input("Choisi les cases : ").split(",")
-    x = int(location[0]) -1
-    z = int(location[1]) -1
+    x = int(location[0]) - 1
+    z = int(location[1]) - 1
     while not possible_square(board, x, z):
         location = input("Choisi les cases : ").split(",")
-        x = int(location[0]) -1
-        z = int(location[1]) -1
+        x = int(location[0]) - 1
+        z = int(location[1]) - 1
     return location
 
 
-def update_board(board, player, x, z):
+def update_board(board, player: int, x: int, z: int):
     board[x][z] = player
+
 
 def again(board):
     for x in range(len(board)):
@@ -76,19 +77,20 @@ def again(board):
             if board[x][z] == 0:
                 return True
 
+
 def win():
     score1 = score[0]
     score2 = score[1]
 
     if score1 > score2:
-        return "Bravo au joueur 1 qui vient de gagner la partie avec "+score1+" points"
+        return "Bravo au joueur 1 qui vient de gagner la partie avec " + score1 + " points"
     elif score1 < score2:
-        return "Bravo au joueur 2 qui vient de gagner la partie avec "+score2+" points"
+        return "Bravo au joueur 2 qui vient de gagner la partie avec " + score2 + " points"
     else:
         return "Bravo au 2 joueurs qui ont participer, malheursement il y a execo"
 
 
-def update_score(board, player, x, y):
+def update_score(board, player: int, x: int, y: int):
     points = 0
 
     length = len(board)
@@ -114,7 +116,7 @@ def update_score(board, player, x, y):
 
         temp_x, temp_z = x, y
 
-        total = [0,0]
+        total = [0, 0]
 
         while x > 0 and y < length - 1:
             x -= 1
@@ -149,6 +151,7 @@ def update_score(board, player, x, y):
         points = total[0] + total[1]
     return points
 
+
 def diagonals():
     board = new_board(5)
 
@@ -157,14 +160,11 @@ def diagonals():
 
     while again(board):
         location = select_square(board)
-        print(1)
-        i = int(location[0]) -1
-        j = int(location[1]) -1
-        print(2)
+        i = int(location[0]) - 1
+        j = int(location[1]) - 1
         update_board(board, currentPlayer, i, j)
-        print(3)
-        score[currentPlayer -1] += update_score(board, currentPlayer, i, j)
-        print(4)
+        score[currentPlayer - 1] += update_score(board, currentPlayer, i, j)
+
         display_board(board)
 
         if currentPlayer == 1:
@@ -174,6 +174,5 @@ def diagonals():
 
     win()
 
+
 diagonals()
-
-
