@@ -46,6 +46,8 @@ def display_board(board):
 # Ici je défini la fonction possible_square qui permet de calculer si
 # la case que le joueur choisi n'est pas occupé.
 def possible_square(board, x: int, z: int):
+    if (x >= len(board) or x < 0) and (z >= len(board) or z < 0):
+        return False
     return board[x][z] == 0
 
 
@@ -53,10 +55,18 @@ def select_square(board):
     print("Pour Choisir merci de respecter le format suivant :")
     print("x,z | exemple : 1,5")
     location = input("Choisi les cases : ").split(",")
+    if len(location) != 2:
+        print("Impossible : respecter le format ! (x,z)")
+        location = input("Choisi les cases : ").split(",")
+
     x = int(location[0]) - 1
     z = int(location[1]) - 1
     while not possible_square(board, x, z):
+        print("Impossible veuillez rechoisir une case !")
         location = input("Choisi les cases : ").split(",")
+        if len(location) != 2:
+            print("Impossible : respecter le format ! (x,z)")
+            location = input("Choisi les cases : ").split(",")
         x = int(location[0]) - 1
         z = int(location[1]) - 1
     return location
@@ -78,9 +88,9 @@ def win():
     score2 = score[1]
 
     if score1 > score2:
-        return "Bravo au joueur 1 qui vient de gagner la partie avec " + score1 + " points"
+        return "Bravo au joueur 1 qui vient de gagner la partie avec " + str(score1) + " points"
     elif score1 < score2:
-        return "Bravo au joueur 2 qui vient de gagner la partie avec " + score2 + " points"
+        return "Bravo au joueur 2 qui vient de gagner la partie avec " + str(score2) + " points"
     else:
         return "Bravo au 2 joueurs qui ont participer, malheursement il y a execo"
 
@@ -148,7 +158,7 @@ def update_score(board, player: int, x: int, y: int):
 
 
 def diagonals():
-    board = new_board(5)
+    board = new_board(1)
 
     display_board(board)
     currentPlayer = 1
@@ -167,7 +177,7 @@ def diagonals():
         else:
             currentPlayer = 1
 
-    win()
+    print(win())
 
 
 diagonals()
