@@ -119,46 +119,62 @@ def update_score(board, player: int, x: int, y: int):
 
     else:
 
-        temp_x, temp_z = x, y
+        tempX = x
+        tempY = y
 
-        total = [0, 0]
+        points_1 = 0
 
-        while x > 0 and y < length - 1:
-            x -= 1
-            y += 1
-
-        while x <= length - 1 and y >= 0:
-            case = board[x][y]
-            x += 1
-            y -= 1
+        while tempX > 0 and tempY > 0:
+            tempX -= 1
+            tempY -= 1
+            case = board[tempX][tempY]
             if case == player:
-                total[0] += 1
+                points_1 += 1
             elif case == 0:
-                total[0] = 0
-                break
+                points_1 = 0
 
-        x, y = temp_x, temp_z
 
-        while x > 0 and y > 0:
-            x -= 1
-            y -= 1
+        tempX = x
+        tempY = y
 
-        while x <= length - 1 and y <= length - 1:
-            case = board[x][y]
-            x += 1
-            y += 1
+        while tempX < length - 1 and tempY < length - 1:
+            tempX += 1
+            tempY += 1
+            case = board[tempX][tempY]
             if case == player:
-                total[1] += 1
+                points_1 += 1
             elif case == 0:
-                total[1] = 0
-                break
+                points_1 = 0
 
-        points = total[0] + total[1]
+        tempX = x
+        tempY = y
+
+        points_2 = 0
+        while tempX < length - 1 and tempY > 0:
+            tempX += 1
+            tempY -= 1
+            case = board[tempX][tempY]
+            if case == player:
+                points_2 += 1
+            elif case == 0:
+                points_2 = 0
+
+        tempX = x
+        tempY = y
+        while tempX > 0 and tempY < length - 1:
+            tempX -= 1
+            tempY += 1
+            if case == player:
+                points_2 += 1
+            elif case == 0:
+                points_2 = 0
+
+        points = points_1 + points_2
     return points
 
 
 def diagonals():
-    board = new_board(1)
+    board = new_board(5)
 
     display_board(board)
     currentPlayer = 1
