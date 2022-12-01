@@ -164,6 +164,7 @@ def update_score(board, player: int, x: int, y: int):
         while tempX > 0 and tempY < length - 1:
             tempX -= 1
             tempY += 1
+            case = board[tempX][tempY]
             if case == player:
                 points_2 += 1
             elif case == 0:
